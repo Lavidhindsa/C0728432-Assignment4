@@ -3,80 +3,85 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using System.IO;
 
 namespace ConsoleApp3
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    namespace ConsoleApp1
+    class Program
     {
-        class Program
+        ArrayList Beowulf;
+        private int countletters;
+
+        static void Main(string[] args)
         {
-            ArrayList Beowulf;
-            private int countletters;
-
-            static void Main(string[] args)
+            Program p = new Program();
+            p.Beowulf = new ArrayList();
+            p.Wordskipper();
+            Console.ReadLine();
+        }
+        public void Run() { this.ReadTextFiles(); }
+        public void ReadTextFiles()
+        {
+            // Read file using StreamReader. Reads file line by line
+            using (StreamReader file = new StreamReader("U:/Users/728432/Downloads/beowulf.txt"))
             {
-                Program p = new Program();
-                p.Beowulf = new ArrayList();
-                p.Wordfinder();
-                Console.ReadLine();
-            }
-            public void Run() { this.ReadTextFiles(); }
-            public void ReadTextFiles()
-            {
-                // Read file using StreamReader. Reads file line by line
-                using (StreamReader file = new StreamReader("U:/Users/728432/Downloads/beowulf.txt"))
+                int counter = 0;
+                string ln;
+                while ((ln = file.ReadLine()) != null)
                 {
-                    int counter = 0;
-                    string ln;
-                    while ((ln = file.ReadLine()) != null)
-                    {
-                        Console.WriteLine(ln);
-                        Beowulf.Add(ln);
-                        counter++;
-
-                    }
-                    file.Close();
-                    Console.WriteLine($"File has {counter} lines.");
-                    Console.WriteLine($"File has {counter * 10} words.");
-
+                    Console.WriteLine(ln);
+                    Beowulf.Add(ln);
+                    counter++;
 
                 }
-            }
-            public void Wordfinder()
-            {
-                int f = 0;
-                foreach (var line in File.ReadAllLines("U:/Users/728432/Downloads/beowulf.txt"))
-                {
-                    if (line.Contains("sea") && line.Contains("fare"))
-                    {
-                        f++;
-                    }
-                }
-                Console.WriteLine(f);
-            }
+                file.Close();
+                Console.WriteLine($"File has {counter} lines.");
+                Console.WriteLine($"File has {counter * 10} words.");
 
-            public int FindNumberOfBlankSpaces(string line)
-            {
-                // hhtp://stackovrflow.com/questions/17812566/count-words-and-spaces-in-string-c-sharp
-                int countletter = 0;
-                int countSpaces = 0;
-                foreach (char c in line)
 
-                {
-                    if (char.IsLetter(c)) { countletters++; }
-                    if (char.IsWhiteSpace(c)) { countSpaces++; }
-
-                }
-                return countSpaces;
             }
         }
+        public void Wordfinder()
+        {
+            int f = 0;
+            foreach (var line in File.ReadAllLines("U:/Users/728432/Downloads/beowulf.txt"))
+            {
+                if (line.Contains("sea") && line.Contains("fare"))
+                {
+                    f++;
+                }
+            }
+            Console.WriteLine(f);
+        }
+        public void Wordskipper()
+        {
+            int f = 0;
+            foreach (var line in File.ReadAllLines("U:/Users/728432/Downloads/beowulf.txt"))
+            {
+                f++;
+                if (line.Contains("fare") && (!line.Contains("war")))
+                {
+                    Console.WriteLine(f);
+                }
+
+            }
+        }
+
+        public int FindNumberOfBlankSpaces(string line)
+        {
+            // hhtp://stackovrflow.com/questions/17812566/count-words-and-spaces-in-string-c-sharp
+            int countletter = 0;
+            int countSpaces = 0;
+            foreach (char c in line)
+
+            {
+                if (char.IsLetter(c)) { countletters++; }
+                if (char.IsWhiteSpace(c)) { countSpaces++; }
+
+            }
+            return countSpaces;
+        }
     }
+}
 

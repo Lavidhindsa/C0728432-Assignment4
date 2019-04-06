@@ -19,20 +19,16 @@ namespace ConsoleApp3
         class Program
         {
             ArrayList Beowulf;
+            private int countletters;
+
             static void Main(string[] args)
             {
                 Program p = new Program();
                 p.Beowulf = new ArrayList();
-
-
-                p.ReadTextFiles();
-
+                p.Wordfinder();
                 Console.ReadLine();
-
             }
-            public void Run()
-
-            { this.ReadTextFiles(); }
+            public void Run() { this.ReadTextFiles(); }
             public void ReadTextFiles()
             {
                 // Read file using StreamReader. Reads file line by line
@@ -40,35 +36,47 @@ namespace ConsoleApp3
                 {
                     int counter = 0;
                     string ln;
-
                     while ((ln = file.ReadLine()) != null)
                     {
-
                         Console.WriteLine(ln);
                         Beowulf.Add(ln);
+                        counter++;
+
                     }
                     file.Close();
-                    counter = File.ReadLines("U:/Users/728432/Downloads/beowulf.txt").Count();
-                    Console.WriteLine($"File has {counter } lines.");
-                    Console.WriteLine($"File has {counter * 10} Words.");
+                    Console.WriteLine($"File has {counter} lines.");
+                    Console.WriteLine($"File has {counter * 10} words.");
+
 
                 }
+            }
+            public void Wordfinder()
+            {
+                int f = 0;
+                foreach (var line in File.ReadAllLines("U:/Users/728432/Downloads/beowulf.txt"))
+                {
+                    if (line.Contains("sea") && line.Contains("fare"))
+                    {
+                        f++;
+                    }
+                }
+                Console.WriteLine(f);
             }
 
             public int FindNumberOfBlankSpaces(string line)
             {
-                // https://stackoverflow.com/questions/17812566/count-words-and-spaces-in-string-c-sharp
-                int countletters = 0;
+                // hhtp://stackovrflow.com/questions/17812566/count-words-and-spaces-in-string-c-sharp
+                int countletter = 0;
                 int countSpaces = 0;
-
                 foreach (char c in line)
+
                 {
                     if (char.IsLetter(c)) { countletters++; }
                     if (char.IsWhiteSpace(c)) { countSpaces++; }
+
                 }
                 return countSpaces;
             }
         }
     }
-}
 
